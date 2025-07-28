@@ -1,8 +1,6 @@
 # app.py
 
-# Task 2: Data Storage Structure
 # This list will hold all our movie review dictionaries.
-# It's declared globally so all functions can access it.
 movie_reviews = []
 
 def add_review():
@@ -35,6 +33,23 @@ def add_review():
     movie_reviews.append(new_review)
     print(f"'{title}' review added successfully!")
 
+def view_reviews():
+    """Displays all existing movie reviews."""
+    print("\n--- All Movie Reviews ---")
+    if not movie_reviews: # Checks if the list is empty
+        print("No reviews added yet. Add some movies first!")
+        return # Exit the function if no reviews
+
+    for i, review in enumerate(movie_reviews):
+        # i is the index (0, 1, 2...), review is the dictionary itself
+        print(f"--- Review #{i + 1} ---") # +1 to make it human-readable (start from 1)
+        print(f"Title: {review['title']}")
+        # We can represent stars visually
+        stars = "⭐" * review['rating'] + "☆" * (5 - review['rating']) # Example: ⭐⭐⭐☆☆
+        print(f"Rating: {review['rating']}/5 {stars}")
+        print(f"Review: {review['review']}")
+        print("--------------------") # Separator for readability
+
 def display_menu():
     """Displays the main menu options to the user."""
     print("\n--- Movie Reviewer Menu ---")
@@ -52,10 +67,9 @@ def main():
         choice = input("Enter your choice (1-3): ")
 
         if choice == '1':
-            add_review() # Call the new add_review function
+            add_review()
         elif choice == '2':
-            print("You chose to view reviews.")
-            # We will call the view_reviews() function here later
+            view_reviews() # Call the new view_reviews function
         elif choice == '3':
             print("Exiting the application. Goodbye!")
             break # Exit the while loop
