@@ -39,10 +39,35 @@ def save_reviews_to_file(reviews_data):
 # Define a route for the home page ('/')
 @app.route('/')
 def home():
+    
     # Load reviews using our helper function
     current_reviews = load_reviews_from_file()
     # Pass the reviews list to the template
     return render_template('index.html', reviews=current_reviews)
+
+@app.route('/add_review', methods=['POST'])
+def add_review():
+    # Get existing reviews from the file
+    all_reviews = load_reviews_from_file()
+
+    # Get the data from the form submission
+    title = request.form['title']
+    rating = int(request.form['rating'])
+    review_text = request.form['review']
+
+    # Create the new review dictionary
+    new_review = {
+        "title": title,
+        "rating": rating,
+        "review": review_text
+    }
+
+    # Add the new review and save to file
+    all_reviews.append(new_review)
+    save_reviews_to_file(all_reviews)
+
+    # Redirect the user back to the home page to see the updated list
+    return redirect(url_for('home'))
 
 # --- (Add New Review functionality will go here in the next phase) ---
 # For now, we are just displaying
