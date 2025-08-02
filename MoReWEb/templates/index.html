@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Reviewer</title>
+    <style>
+        /* Basic CSS for readability */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        .review-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .review-container h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .review-container p {
+            margin: 0;
+            line-height: 1.5;
+        }
+        .rating {
+            font-weight: bold;
+            color: #e44d26; /* A nice orange/red for rating */
+        }
+        .no-reviews {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Reviewer</h1>
+
+    <h2>All Reviews</h2>
+
+    {% if reviews %} {# Jinja2: Check if the 'reviews' list is not empty #}
+        {% for review in reviews %} {# Jinja2: Loop through each review in the list #}
+            <div class="review-container">
+                <h3>{{ review.title }}</h3> {# Jinja2: Display the movie title #}
+                <p class="rating">Rating: {{ review.rating }}/5 {{ '⭐' * review.rating }}{{ '☆' * (5 - review.rating) }}</p>
+                <p>Review: {{ review.review }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-reviews">No reviews added yet. Let's add some!</p>
+    {% endif %}
+
+    <hr>
+    <p>This is your web app!</p>
+
+</body>
+</html>
